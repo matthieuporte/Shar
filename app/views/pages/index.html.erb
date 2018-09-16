@@ -1,0 +1,22 @@
+<% if user_signed_in? %>
+
+<body class="noscroll">
+<div id="bg-image-acceuil"></div>
+  <div class="hero-text">
+    <p class="titre_Shar">&lt;Shar/&gt;</p>
+    <p class="slogan_Shar">Bon retour parmi nous !</p>
+  </div>
+  <a href="/acceuil"><button type="button" class="btn btn-primary btn-lg rejoindre"><i class="fas fa-sign-in-alt"></i> Acceuil</button></a><br>
+</body>
+
+<% else %>
+<body class="noscroll">
+<div id="bg-image-acceuil"></div>
+  <div class="hero-text">
+    <p class="titre_Shar">&lt;Shar/&gt;</p>
+    <p class="slogan_Shar">Partagez votre passion, vos créations et rejoignez vos amis en vous inscrivant gratuitement !</p>
+  </div>
+  <a href="/users/sign_up"><button type="button" class="btn btn-primary btn-lg rejoindre"><i class="fas fa-door-open"></i> Rejoindre Shar</button></a><br>
+  <a href="/users/sign_in" class="Mco">Déjà inscrit ? Se connecter</a>
+</body>
+<% end %>

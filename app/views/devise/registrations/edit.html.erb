@@ -1,0 +1,100 @@
+<br><br><br><br>
+<center><i class="fas fa-arrow-circle-left" style="color: blue"></i> <%= link_to "Revenir en arrière", "/users/#{current_user.id}" %></center>
+<div class="container wrapper">
+  <div class="row">
+    <div class="col-3"><img src="<%= @user.lienAvatar %>" class="MimgCompte"></div>
+    <div class="col-6">
+      <div class="MbarCompte">
+        <p class="MtitreCompte">Modification de votre compte - <b><%= @user.username %></b></p>
+      </div>
+      <br>
+      <hr>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="MformCompte">
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Prénom & Nom</span>
+            </div>
+            <%= f.text_field :prenom, autofocus: true, autocomplete: "prenom", maxlength: 16, value: @user.prenom, class: "form-control" %>
+            <%= f.text_field :nom, autofocus: true, autocomplete: "nom", maxlength: 16, value: @user.nom, class: "form-control" %>
+          </div>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Nom d'utilisateur</span>
+            </div>
+            <%= f.text_field :username, autofocus: true, autocomplete: "username", maxlength: 16, value: @user.username, class: "form-control" %>
+          </div>
+          <div style="display: flex;">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Avatar</span>
+              </div>
+              <%= f.text_field :lienAvatar, autofocus: true, autocomplete: "link", value: @user.lienAvatar, class: "form-control" %>
+              <a href="#" title="Besoin d'aide ?" style="margin-top: 8px; margin-left: 15px;">?</a>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">E-mail</span>
+            </div>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", value: @user.email, class: "form-control" %>
+          </div>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Mot de passe & Confirmation</span>
+            </div>
+            <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control", minlength: 6 %>
+            <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "new-password", class: "form-control" %>
+          </div>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Biographie</span>
+            </div>
+            <textarea class="form-control" style="height: 163px;" name="biographie"><%= @user.biographie %></textarea>
+          </div>
+
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="text-align:center;">Mot de passe actuel</span>
+            </div>
+            <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control", required: true %>
+        </div>
+
+        <br>
+
+        <div class="actions">
+          <%= f.submit "Mettre à jour mon compte", class: "btn btn-outline-warning MbtnModifCompte" %>
+        </div>
+      <% end %>
+      </div>
+    <div class="col-3"></div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<center>
+  <h3 style="color: red;">Supprimer mon compte</h3>
+  <br>
+  <hr style="width: 10%;">
+  <br>
+  <p style="width: 40%;">
+    Si quelque chose a perturbée votre expérience sur <em>Shar</em>, veuillez contacter un administrateur.<br>
+    Si vous décidez quand même de nous quitter, nous vous souhaitons un retour très rapide ainsi qu'une bonne journée.
+    <br><br>
+    <em style="float: right;">L'équipe administrative de Shar.</em>
+    <br><br>
+    <%= button_to "Supprimer mon compte", registration_path(resource_name), data: { confirm: "Êtes-vous sûr ?" }, method: :delete, class: "btn btn-outline-danger" %>
+  </p>
+  <br><br>
+</center>

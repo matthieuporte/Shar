@@ -1,0 +1,39 @@
+<div class="wrapper">
+  <br><br> 
+  <div class="jform" style="text-align: center;">
+    <h2>Se connecter</h2>
+    <br>
+    <center><hr style="width: 8%;"></center>
+    <br>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :login, value: "Nom d'utilisateur ou e-mail" %><br />
+        <%= f.text_field :login, autofocus: true, autocomplete: "email", style: "padding: 7px; width: 40%;" %>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <%= f.label :password, value: "Mot de passe" %><br />
+        <%= f.password_field :password, autocomplete: "current-password", style: "padding: 7px; width: 40%;" %>
+      </div>
+
+      <br>
+      <% if devise_mapping.rememberable? -%>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end -%>
+      <br>
+
+      <div class="actions">
+        <center><%= f.submit "Se connecter", class: "btn btn-lg btn-primary btn-block", style: "width: 50%;" %></center>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <center><%= render "devise/shared/links" %></center>
+  <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
+</div>

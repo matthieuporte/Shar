@@ -1,0 +1,12 @@
+<center>
+	<br><br><br><br>
+	<h2>Message reçu de la part de <b><%= User.find(@activeMessage.id_auteur).username %></b></h2>
+	<br>
+	<hr style="width: 10%;">
+	<br>
+
+	<p>
+		<span><b>Message:</b> <%= simple_format(h @activeMessage.contenu) %></span>
+	</p>
+	<br><br>
+</center>

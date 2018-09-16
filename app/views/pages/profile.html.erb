@@ -1,0 +1,300 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  if(localStorage.getItem("isRefresh") === undefined){
+    localStorage.setItem("isRefresh",true);
+    location.href = location.href;
+  }
+</script>
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Abonnés</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <% @followeds.each do |follower| %>
+      		<div class="media text-muted pt-3">
+	          <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" src="<%= User.find(follower.id_follower).lienAvatar %>" data-holder-rendered="true" style="width: 32px; height: 32px;">
+	          <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+	            <div class="d-flex justify-content-between align-items-center w-100">
+	              <strong class="text-gray-dark">
+	              	<%= User.find(follower.id_follower).prenom %>&nbsp;<%= User.find(follower.id_follower).nom %>
+	              </strong>
+	              <a href="/users/<%= follower.id_follower %>">Accéder au profil</a>
+	            </div>
+	            <span class="d-block">@<%= User.find(follower.id_follower).username %></span>
+	          </div>
+	        </div>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Abonnements</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <% @followers.each do |follower| %>
+      		<div class="media text-muted pt-3">
+	          <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" src="<%= User.find(follower.id_followed).lienAvatar %>" data-holder-rendered="true" style="width: 32px; height: 32px;">
+	          <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+	            <div class="d-flex justify-content-between align-items-center w-100">
+	              <strong class="text-gray-dark">
+	              	<%= User.find(follower.id_followed).prenom %>&nbsp;<%= User.find(follower.id_followed).nom %>
+	              </strong>
+	              <a href="/users/<%= follower.id_follower %>">Accéder au profil</a>
+	            </div>
+	            <span class="d-block">@<%= User.find(follower.id_followed).username %></span>
+	          </div>
+	        </div>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="wrapper">
+	<center>
+		<style type="text/css">
+		* {
+		    box-sizing: border-box;
+		}
+
+		/* Style the body */
+		body {
+		    font-family: Arial;
+		    margin: 0;
+
+		    background-color: #191d1c;
+		}
+
+		/* Header/logo Title */
+		.headera {
+		    padding: 60px;
+		    text-align: center;
+		    background: #191d1c;
+		    color: white;
+		}
+
+		/* Column container */
+		.rowa {
+		    display: flex;
+		    flex-wrap: wrap;
+		}
+
+		/* Create two unequal columns that sits next to each other */
+		/* Sidebar/left column */
+		.sidea {
+		    flex: 30%;
+		    background-color: #f1f1f1;
+		    padding: 20px;
+        height: 100vh;
+        overflow: auto;
+
+		    background-color: #484848;
+		}
+    a{
+    outline: none;
+  }
+
+		/* Main column */
+		.maina {
+		    flex: 70%;
+		    background-color: white;
+		    padding: 20px;
+		    height: 100vh;
+
+		    background-color: #656161;
+		    clear:both;
+		}
+
+		/* Fake image, just for this example */
+		.fakeimga {
+		    background-color: #aaa;
+		    width: 100%;
+		    padding: 20px;
+		}
+
+		/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 700px) {
+		    .row, .navbar {
+		        flex-direction: column;
+		    }
+		    .brlist{
+		    	display: block;
+		    }
+		}
+		.brlist{
+			display: none;
+		}
+		</style>
+
+		<div class="brlist">
+			<br><br><br><br><br><br><br><br><br>
+		</div>
+
+
+		<!-- Header -->
+		<div class="headera">
+			<div>
+				<h1><img src="<%= @user.lienAvatar %>" class="imgProfile">&nbsp;&nbsp;&nbsp;<%= @user.username %></h1><br>
+		  		<p><%= @user.biographie %></p>
+			</div>
+			<br><br>
+			<style type="text/css">
+				.info_list{
+					display: block;
+				}
+				@media only screen and (max-width: 600px) {
+					.info_list {
+						display: none;
+					}
+					.brlist{
+				    	display: block;
+				    }
+				}
+			</style>
+			<div style="float: left;" class="info_list">
+				<p style="font-family: monospace;">
+					<ul style="list-style-type: none; display: flex;">
+						<li><i class="fas fa-bolt"></i>&nbsp;&nbsp;&nbsp;<b>Prénom:</b> <%= @user.prenom %></li>
+						&nbsp;&nbsp;-&nbsp;&nbsp;
+						<li><b>Nom:</b> <%= @user.nom %></li>
+						&nbsp;&nbsp;-&nbsp;&nbsp;
+						<li><b>Expérience:</b> <%= @user.xp %></li>
+						&nbsp;&nbsp;-&nbsp;&nbsp;
+						<li><a href="#" onclick="return false;" data-toggle="modal" data-target="#myModal"><b>Nombre d'abonnés:</b> <%= @followeds.length %></a></li>
+						&nbsp;&nbsp;-&nbsp;&nbsp;
+						<li><a href="#" onclick="return false;" data-toggle="modal" data-target="#myModal2"><b>Abonnements:</b> <%= @followers.length %></a></li>
+					</ul>
+				</p>
+			</div>
+			<ul style="list-style-type: none; float: right; display: flex;">
+				<% if current_user != nil %>
+					<% if @user.id == current_user.id %>
+						<li>
+							<a href="./edit" class="btn btn-warning">
+							  Éditer le profil
+							</a>
+						</li>
+					<% elsif @user.id != current_user.id %>
+						<li>
+								<%
+								userWantFollow = User.find(current_user.id)
+								userToFollow = User.find(params[:id])
+
+								isFollowing = Follow.where(id_follower: userWantFollow.id, id_followed: userToFollow.id).length
+								if isFollowing == 0 %>
+									<%= form_tag "/users/#{params[:id]}", method: "post" do %>
+										<input type="submit" class="btn btn-outline-primary" value="Suivre cet utilisateur">
+									<% end %>
+								<% elsif isFollowing > 0 %>
+									<%= form_tag "/users/#{params[:id]}", method: "patch" do %>
+										<input type="submit" class="btn btn-outline-primary" value="Ne plus suivre">
+									<% end %>
+								<% end %>
+						</li>
+						&nbsp;&nbsp;&nbsp;
+						<li>
+							<a href="#" class="btn btn-primary">
+							  Envoyer un message
+							</a>
+						</li>
+					<% end %>
+				<% end %>
+			</ul>
+		</div>
+
+		<!-- The flexible grid (content) -->
+		<div class="rowa">
+		  <div class="sidea">
+		  	  <br>
+          <% if @followers.length > 0 %>
+            <% if current_user.id == @user.id %>
+              <h1 style="color: white;">Ils vous suivent</h1><br>
+            <% else %>
+              <h1 style="color: white;">Ils suivent <%= @user.username %></h1><br>
+            <% end %>
+          <% end %>
+		      <h2 style="color: white;"><% @followers.each do |follower| %>
+            <a href="/users/<%= follower.id_followed %>" class="nolinkstyle">
+            <div class="elem_search">
+                <img   alt="32x32"  src="<%= User.find(follower.id_followed).lienAvatar %>" class="trImage">
+              <div class="tdContenu">
+                <h4><strong>@<%= User.find(follower.id_followed).username %></strong></h4>
+                <h6><%= User.find(follower.id_followed).prenom %>&nbsp;<%= User.find(follower.id_followed).nom %></h6>
+              </div>
+            </div>
+            </a>
+          <% end %>
+          </h2>
+		      <br><br>
+          <% if @followeds.length > 0 %>
+            <% if current_user.id == @user.id %>
+              <h1 style="color: white;">Vous les suivez</h1><br>
+            <% else %>
+              <h1 style="color: white;"><%= @user.username %> les suit</h1><br>
+            <% end %>
+          <% end %>
+		      <h2 style="color: white;"><% @followeds.each do |followed| %>
+            <a href="/users/<%= followed.id_follower %>" class="nolinkstyle">
+            <div class="elem_search">
+                <img   alt="32x32"  src="<%= User.find(followed.id_follower).lienAvatar %>" class="trImage">
+              <div class="tdContenu">
+                <h4><strong>@<%= User.find(followed.id_follower).username %></strong></h4>
+                <h6><%= User.find(followed.id_follower).prenom %>&nbsp;<%= User.find(followed.id_follower).nom %></h6>
+              </div>
+            </div>
+            </a>
+          <% end %>
+        </h2><br><br><br><br><br><br><br>
+		  </div>
+		  <div class="maina" style="overflow-y: scroll;">
+		      <% @allPublications.each do |une_publication| %>
+				      <div class="jumbotron p-3 p-md-5 text-black rounded">
+				        <h1 class="display-4 font-italic word-break"><%= une_publication.titre %></h1>
+				        <p class="Mdate"><%= une_publication.date %></p>
+				        <div class="col-md-10 px-0">
+				          <p class="lead my-3 word-break"><%= une_publication.contenu %></p>
+				        </div>
+				          <% if current_user != nil %>
+				          	<% if @user.id == current_user.id %>
+					          	<%= form_tag "./#{current_user.id}", method: "delete" do %>
+					          		<input name="id_publication" class="MidPublication" value="<%= une_publication.id %>" readonly>
+					          		<button type="submit" class="btn btn-outline-danger MbtnModifCompte">Supprimer</button>
+					          	<% end %>
+					          <% end %>
+				          <% end %>
+				          <br>
+				      </div>
+		      <% end %>
+		      <% if @allPublications.length == 0 %>
+
+		      	<% if @user.id == current_user.id %>
+
+		      		<br>
+		      		<p>Vous n'avez encore rien publié.<br>Commencez maintenant en cliquant <a href="/publications">ici</a></p>
+
+		      	<% elsif false == false %>
+
+		      	<% end %>
+
+		      <% end %>
+		  </div>
+		</div>
+	</center>
+</div>

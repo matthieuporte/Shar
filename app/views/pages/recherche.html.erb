@@ -1,0 +1,63 @@
+<div class="container wrapper">
+  <br><br>
+  <% if @retourFinal != nil && @retourFinal.length > 0 %>
+  <h1><i class="fas fa-search loupe_search"></i>&nbsp;Resultats pour "<%= @recherche %>"</h1>
+  <hr class="hrSearch"><br>
+    <% @retourFinal.each do |un_elem| %>
+      <% if un_elem.class.name == "Publication" %>
+        <div class="elem_search">
+          <i class="fas fa-file-alt trImageSvg fa-4x"></i>
+          <div class="trContenu">
+            <h6><strong><%= un_elem.titre %></strong></h6>
+            <p class="text_search word-break"><%= un_elem.contenu %></p>
+          </div>
+          <div class="trLire"><a href="#" data-toggle="modal" data-target="#pub<%= un_elem.id %>">continuer a lire</a></div>
+        </div>
+        <div class="modal fade" id="pub<%= un_elem.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title word-break"><%= un_elem.titre.html_safe %></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body word-break2">
+                 <%= simple_format(h un_elem.contenu) %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% elsif un_elem.class.name == "User" %>
+        <div class="elem_search">
+            <img src="<%= un_elem.lienAvatar %>" class="trImage">
+          <div class="trContenu">
+            <h6><strong>@<%= un_elem.username %></strong></h6>
+            <p class="text_search word-break2"><%= un_elem.biographie %></p>
+          </div>
+          <div class="trLire"><a href="/users/<%= un_elem.id %>">acceder au profil</a></div>
+        </div>
+      <% end %>
+    <% end %>
+  <% elsif @recherche != nil %>
+    <br><br>
+    <div class="centre">
+      <h2><i class="fas fa-times-circle fa-lg"></i> pas de resultats pour "<%= @recherche %>"</h2>
+      <a href="/publications">ecrire la premiere publication parlant de "<%= @recherche %>"</a>
+      <%= form_tag "/recherche", method: "post" do %>
+        <input class="form-control mr-sm-2" style="width:290px;" type="search" name="recherche" placeholder="Rechercher amis, profils et publications" aria-label="Search">
+      <% end %>
+    </div>
+  <% else %>
+    <br><br>
+    <div class="centre">
+      <h2><i class="fas fa-times-circle fa-lg"></i> faites une recherche ci-dessous</h2>
+      <%= form_tag "/recherche", method: "post" do %>
+        <input class="form-control mr-sm-2" style="width:290px;" type="search" name="recherche" placeholder="Rechercher amis, profils et publications" aria-label="Search">
+      <% end %>
+    </div>
+  <% end %>
+</div>

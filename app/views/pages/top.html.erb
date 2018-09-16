@@ -1,0 +1,15 @@
+<div class="container">
+  <br><br><br><br><br><% classement = 1 %>
+  <% @allUserTrie.each do |un_user| %>
+    <%= classement %>
+    <div class="elem_search">
+        <img src="<%= un_user.lienAvatar %>" class="trImage">
+      <div class="trContenu">
+        <h6><strong>@<%= un_user.username %></strong></h6>
+        <p class="text_search word-break2"><%= un_user.xp %>&nbsp;points d'experience.</p>
+      </div>
+      <div class="trLire"><a href="/users/<%= un_user.id %>">acceder au profil</a></div>
+    </div>
+    <% classement += 1 %>
+  <% end %>
+</div>

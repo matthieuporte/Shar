@@ -1,0 +1,66 @@
+<div class="container wrapper">
+  <br><br><br>
+  <h1>Découvrir :</h1>
+  <hr><br>
+  <div class="row mb-2" id="lieu_postRecents"></div>
+</div>
+<script type="text/javascript">
+<% countRecents = 0
+affichagemax = 0
+if (@allPublications.length > 16)
+  affichagemax = 16
+else
+  affichagemax = @allPublications.length
+end %>;
+
+function discover() {
+  <% while countRecents < affichagemax  do %>;
+  var strSimple = '<%= @allPublications[countRecents].contenu.inspect %>'.replace(/(?:\r\n|\r|\n)/g, '&nbsp;');
+  var strComplete = '<%= @allPublications[countRecents].contenu.inspect %>'.replace(/(?:\r\n|\r|\n)/g, '<br>');
+    document.getElementById('lieu_postRecents').innerHTML += "<div class=\"col-md-6\">" +
+      "<div class=\"card flex-md-row mb-4 shadow-sm swing-in-top-fwd h-md-250\">" +
+        "<div class=\"card-body d-flex flex-column align-items-start\">" +
+          "<strong class=\"d-inline-block mb-2 text-warning\"><i class=\"fas fa-clock\"></i>&nbsp;Recent</strong>" +
+          "<h3 class=\"mb-0\">" +
+            "<p class=\"text-dark word-break\"><%= @allPublications[countRecents].titre %></p>" +
+          "</h3>" +
+          "<div class=\"mb-1 text-muted\">@<%= @allPublications[countRecents].auteur %>&nbsp;&nbsp;&nbsp;&nbsp;<%= @allPublications[countRecents].date %></div>" +
+          "<p class=\"card-text mb-auto contenuPost word-break\">"+ replaceBalise(strSimple.substring(6 ,strSimple.length - 6)) +"</p>" +
+          "<a class=\"badge badge-light\" href=\"#\" data-toggle=\"modal\" data-target=\"#pub<%= @allPublications[countRecents].id %>\" class=\"btnModal\">continuer a lire</a>" +
+        "</div>" +
+      "</div>" +
+    "</div>" +
+    "<div class=\"modal fade\" id=\"pub<%= @allPublications[countRecents].id %>\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">" +
+      "<div class=\"modal-dialog modal-lg\" role=\"document\">" +
+        "<div class=\"modal-content\">" +
+          "<div class=\"modal-header\">" +
+            "<h5 class=\"modal-title word-break\"><%= @allPublications[countRecents].titre.html_safe %></h5>" +
+            "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">" +
+              "<span aria-hidden=\"true\">&times;</span>" +
+            "</button>" +
+          "</div>" +
+          "<div class=\"modal-body word-break\">" +
+             replaceBalise(strComplete.substring(6,strComplete.length - 6)) +
+          "</div>" +
+          "<div class=\"modal-footer\">" +
+            "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>" +
+          "</div>" +
+        "</div>" +
+      "</div>" +
+    "</div>";
+    <% countRecents += 1%>;
+  <% end %>;
+}
+discover();
+$("#decouvrir").on("click",function(){
+  discover();
+})
+function replaceBalise(str) {
+  var strFinal = str;
+  while (strFinal.indexOf('&lt;-') !== -1 && strFinal.indexOf('-&gt;') !== -1){
+    strFinal = str.replace("&lt;-","<span class='Mcode'>");
+    strFinal = strFinal.replace("-&gt;","</span>");
+  }
+  return strFinal;
+}
+</script>

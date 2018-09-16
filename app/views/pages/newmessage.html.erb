@@ -1,0 +1,23 @@
+<div class="wrapper">
+	<br>
+	<br>
+	<div class="jform" style="text-align: center;">
+		<%= form_tag "/newmessage", method: "post" do %>
+			<div class="field">
+				<div>
+					<%= label_tag :dest, "Destinataire:" %><br>
+					<input type="text" name="dest" style="padding: 7px; width: 40%;" placeholder="Écrivez...">
+				</div>
+				<br>
+				<div>
+					<%= label_tag :message, "Votre message:" %><br>
+					<textarea name="message" style="padding: 15px; width: 80%; margin-top: 0px; margin-bottom: 0px; height: 295px;" placeholder="Écrivez..."></textarea>
+				</div>
+				<br>
+				<center>
+					<%= submit_tag("Envoyer le message", class: "btn btn-lg btn-primary btn-block", style: "width: 50%;") %>
+				</center>
+			</div>
+		<% end %>
+	</div>
+</div>

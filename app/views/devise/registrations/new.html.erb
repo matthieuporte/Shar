@@ -1,0 +1,66 @@
+<div class="wrapper" style="overflow: visible;">
+  <br><br>
+  <div class="jform_registration" style="text-align: center;">
+    <h2>S'inscrire</h2>
+    <br>
+    <center><hr style="width: 8%;"></center>
+    <br>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="field">
+        <!-- <%= f.label :prenom %><br /> -->
+        <%= f.text_field :prenom, placeholder: "Prénom ", required: true, autofocus: true, style: "padding: 7px; width: 40%;"  %>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <!-- <%= f.label :nom %><br /> -->
+        <%= f.text_field :nom, placeholder: "Nom ", required: true, style: "padding: 7px; width: 40%;" %>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <!-- <%= f.label :username %><br /> -->
+        <%= f.text_field :username, placeholder: "Pseudonyme", required: true, style: "padding: 7px; width: 40%;" %>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <!-- <%= f.label :email %><br /> -->
+        <%= f.email_field :email, autocomplete: "email", placeholder: "E-mail", required: true, style: "padding: 7px; width: 40%;" %>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <!-- <%= f.label :password %> -->
+        <% if @minimum_password_length %>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", required: true, placeholder: "Mot de passe (6 characters minimum)", style: "padding: 7px; width: 40%;" %>
+      </div>
+
+      <br>
+
+      <div class="field">
+        <!-- <%= f.label :password_confirmation %><br /> -->
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, placeholder: "Confirmation du mot de passe", style: "padding: 7px; width: 40%;" %>
+        <br><em>(ces paramètres pourront être modifiés par la suite)</em>
+      </div>
+
+      <br><br>
+
+      <div class="actions">
+        <center><%= f.submit "S'inscrire", class: "btn btn-lg btn-primary btn-block", style: "width: 50%;" %></center>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <br>
+  <center><%= render "devise/shared/links" %></center>
+  <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
+</div>

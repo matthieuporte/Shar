@@ -1,0 +1,52 @@
+<div class="container wrapper">
+  <br><br>
+  <div class="jumbotron p-3 p-md-5 text-black rounded bg-light">
+    <h3 class="display-9 font-italic">Écrire une publication</h3>
+    <hr id="MhrPost">
+    <%= form_tag "/publications", method: "post" do %>
+      <div class="MformPubl">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Titre</span>
+          </div>
+          <input type="text" name="titre" class="form-control" required autocomplete="off" placeholder="Écrivez..." maxlength="45">
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Contenu</span>
+          </div>
+          <textarea class="form-control" name="contenu" required autocomplete="off" placeholder="Écrivez... (ecrivez <- votre code -> pour faire une balise code)" maxlength="800"></textarea>
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-outline-secondary MbtnModifCompte">Poster</button>
+      <br>
+    <% end %>
+  </div>
+  <% @allPublications.each do |une_publication| %>
+    <%= form_tag "/publications", method: "delete" do %>
+      <div class="jumbotron p-3 p-md-5 text-black rounded">
+        <h1 class="display-6 font-italic word-break"><%= une_publication.titre %></h1>
+        <p class="Mdate"><%= une_publication.date %></p>
+        <div class="col-md-10 px-0">
+          <p class="lead my-3 word-break2" id="cpm<%= une_publication.id %>">Chargement du contenu...</p>
+        </div>
+          <input name="id_publication" class="MidPublication" value="<%= une_publication.id %>" readonly>
+          <button type="submit" class="btn btn-outline-danger MbtnModifCompte">Supprimer</button>
+          <br>
+      </div>
+    <% end %>
+    <script>
+    var strComplete = '<%= une_publication.contenu.inspect %>'.replace(/(?:\r\n|\r|\n)/g, '<br>');
+    $("#cpm<%= une_publication.id %>").html(replaceBalise(strComplete.substring(6,strComplete.length - 6)));
+    function replaceBalise(str) {
+      var strFinal = str;
+      while (strFinal.indexOf('&lt;-') !== -1 && strFinal.indexOf('-&gt;') !== -1){
+        strFinal = str.replace("&lt;-","<span class='Mcode'>");
+        strFinal = strFinal.replace("-&gt;","</span>");
+      }
+      return strFinal;
+    }
+    </script>
+  <% end %>
+</div>

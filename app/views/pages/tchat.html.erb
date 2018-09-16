@@ -1,0 +1,15 @@
+<div class="container">
+  <div id="messagesTchat">
+    <% @allTchat.each do |un_tchat| %>
+      <p><%= un_tchat.auteur %><%= un_tchat.contenu %></p>
+    <% end %>
+  </div>
+  <%= form_tag "/tchat", method: "post" do %>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Aa.." name="contenu">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="submit">Envoyer</button>
+    </div>
+  </div>
+  <% end %>
+</div>
